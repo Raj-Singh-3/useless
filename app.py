@@ -13,7 +13,7 @@ CORS(app)  # Enable CORS for all routes
 
 # OpenRouter API endpoint and API key
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
-OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")  # Read API key from .env file
+OPENROUTER_API_KEY = os.getenv("OPENROUTER_API_KEY")
 
 def chat_with_bot(user_message):
     """
@@ -47,7 +47,8 @@ def chat_with_bot(user_message):
     except requests.exceptions.RequestException as e:
         print("Error response from OpenRouter API:")  # Debugging
         if response:
-            print(response.json())  # Print the full error response
+            print("Status Code:", response.status_code)  # Debugging
+            print("Response Body:", response.text)  # Debugging
         return f"Error: {str(e)}"
 
 @app.route('/chat', methods=['POST'])
